@@ -1,0 +1,100 @@
+table F_Crime
+	lineageTag: c9706816-aad3-431e-9319-8f0d82b725ef
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: c0241ea3-b74a-431a-bc18-b43c1a191dc7
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column mp
+		dataType: int64
+		formatString: 0
+		lineageTag: 78114a52-9d5f-47cf-8ca5-6b30c96bbfbf
+		summarizeBy: sum
+		sourceColumn: mp
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: int64
+		formatString: 0
+		lineageTag: 52cef1e9-41d3-4486-83f0-134f643aaa2a
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column relevance
+		dataType: int64
+		formatString: 0
+		lineageTag: 03e7086f-ef42-46c0-8d19-66581b3f06ad
+		summarizeBy: none
+		sourceColumn: relevance
+
+		annotation SummarizationSetBy = Automatic
+
+	column types
+		dataType: int64
+		formatString: 0
+		lineageTag: 2bbca7ec-3867-468f-ad1e-a59bd40b5ed0
+		summarizeBy: none
+		sourceColumn: types
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_one
+		dataType: int64
+		formatString: 0
+		lineageTag: f6ec47e8-bca5-4e7e-b332-454cf0828801
+		summarizeBy: sum
+		sourceColumn: is_one
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3bf36546-0c53-4092-8ed5-30e3371f0881
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column time_key
+		dataType: string
+		lineageTag: 4882009a-c0ea-42e0-8bc4-2d434c9d03f7
+		summarizeBy: none
+		sourceColumn: time_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_id
+		dataType: string
+		lineageTag: 4c6a6552-e0b8-46be-b5d5-5a8484f8e4b9
+		summarizeBy: none
+		sourceColumn: city_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition F_Crime = m
+		mode: import
+		queryGroup: FACTs
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\jirip\Documents\Developer\python\kriminalita\mapped_files\F_Crime.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id", Int64.Type}, {"mp", Int64.Type}, {"state", Int64.Type}, {"relevance", Int64.Type}, {"types", Int64.Type}, {"is_one", Int64.Type}, {"date_key", type date}, {"time_key", type text}, {"city_id", type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date_key] >= #date(2021, 1, 1) and [date_key] <= #date(2025, 5, 1))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

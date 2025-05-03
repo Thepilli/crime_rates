@@ -1,0 +1,35 @@
+table D_Relevance
+	lineageTag: 52babea3-daa3-4742-8d2d-aae69a8ca22e
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 3cc161c4-f4ad-4b88-9261-2201927c1b8f
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column label
+		dataType: string
+		lineageTag: babcfb73-44bb-4689-989c-91a4566979b6
+		summarizeBy: none
+		sourceColumn: label
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Relevance = m
+		mode: import
+		queryGroup: DIMs
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\jirip\Documents\Developer\python\kriminalita\dimensions\relevance.csv"),[Delimiter=",", Columns=2, Encoding=65001]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id", Int64.Type}, {"label", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

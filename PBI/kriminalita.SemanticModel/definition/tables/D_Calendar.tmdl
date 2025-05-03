@@ -1,0 +1,152 @@
+table D_Calendar
+	lineageTag: 8bc83204-6f70-458e-94f7-2d653a0acd93
+
+	column Date
+		formatString: General Date
+		lineageTag: 656f34fc-77ac-4eb0-bb52-37fd6176a5f8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 2235497e-314a-4dcc-a8b7-53e3e50d6a65
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Quarter Number'
+		formatString: 0
+		lineageTag: 7de7b267-4224-4036-a2d1-1c23812edb6f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Year Quarter Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Quarter'
+		lineageTag: 750be623-fd0e-4228-b8f0-3127d2a3e6c6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Year Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: 44fec7b4-5c7c-44e5-b0b2-04876d5c015d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Month'
+		lineageTag: a50c16a6-f104-4b39-aa17-773f39ff7338
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Year Month]
+		sortByColumn: 'Year Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Month Number'
+		formatString: 0
+		lineageTag: e707d68e-b495-46b1-84d2-96257debd793
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Year Month Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Week Number'
+		lineageTag: 09c3550f-c149-4a3b-9591-08b7763a3765
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Year Week Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week of Year'
+		formatString: 0
+		lineageTag: 8b661734-2a76-4bc1-b69d-22949c301fbf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Week of Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		lineageTag: e2b0a29c-b589-47f6-8de4-a39659972415
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number'
+		formatString: 0
+		lineageTag: aba25768-a9d1-4158-a8bc-1809514415e6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Month Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week Number'
+		formatString: 0
+		lineageTag: 67ab396f-931c-40d6-9d28-9c62fe58e190
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Day of Week Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week'
+		lineageTag: a80fbf81-b467-4d36-94da-d7848dbc5239
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Day of Week]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateWithTransactions
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d781d878-22fd-43f0-bdd2-2a20bf086bb4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[DateWithTransactions]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Month Short'
+		lineageTag: 47db4435-4d44-45ef-a7c3-b0142006d29b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: D_Calendar_tmp[Year Month Short]
+		sortByColumn: 'Year Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last 12 Months' =
+			IF
+			(
+			    D_Calendar[Date] >= EDATE( MAX( D_Calendar[Date] ), -12 )
+			        && D_Calendar[Date] <= MAX( D_Calendar[Date] ),
+			    1,
+			    0
+			)
+		lineageTag: ba2ccdf7-7d65-489d-ba17-9a0af41aa12f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Calendar = calculated
+		mode: import
+		source = CALCULATETABLE(D_Calendar_tmp,D_Calendar_tmp[DateWithTransactions])
+
+	annotation TabularEditor_TableGroup = DIMs
+

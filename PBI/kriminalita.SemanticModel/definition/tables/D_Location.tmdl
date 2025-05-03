@@ -1,0 +1,95 @@
+table D_Location
+	lineageTag: 086f212b-8801-4402-9bdf-d9caf513097b
+
+	column Kraj_ID
+		dataType: string
+		lineageTag: c7a0a971-5d6a-421b-8342-aa0d743f25d5
+		summarizeBy: none
+		sourceColumn: Kraj_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Okres_ID
+		dataType: string
+		lineageTag: 9787e314-2fdd-415c-8b6f-45d0d606e5ef
+		summarizeBy: none
+		sourceColumn: Okres_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kraj_name
+		dataType: string
+		lineageTag: 9f1e64d7-aa17-463a-b65a-e9a0e758c78d
+		summarizeBy: none
+		sourceColumn: Kraj_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Okres_name
+		dataType: string
+		lineageTag: 7a23d186-92a7-4a4f-bb31-b3044b651bca
+		summarizeBy: none
+		sourceColumn: Okres_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Okres_populace
+		dataType: string
+		isHidden
+		lineageTag: 472c781d-2b94-4d93-844d-7d9b63e327eb
+		summarizeBy: none
+		sourceColumn: Okres_populace
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: string
+		lineageTag: e00bd838-55b2-45f5-9b84-e10d481e6421
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Obec_ID
+		dataType: string
+		lineageTag: fb2da46b-156c-40dd-9a75-d9b695509bb5
+		summarizeBy: none
+		sourceColumn: Obec_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Obec_name
+		dataType: string
+		lineageTag: 3fbb132c-ad3c-4165-a47a-ecab429225cc
+		summarizeBy: none
+		sourceColumn: Obec_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Population
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6a810531-45db-43d5-a5af-46d767ee27ef
+		summarizeBy: none
+		sourceColumn: Population
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Location = m
+		mode: import
+		queryGroup: DIMs
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\jirip\Documents\Developer\python\kriminalita\dimensions\D_location.csv"),[Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Population", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

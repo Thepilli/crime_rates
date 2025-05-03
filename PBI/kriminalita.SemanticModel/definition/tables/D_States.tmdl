@@ -1,0 +1,35 @@
+table D_States
+	lineageTag: 572ce952-8c4e-42de-b17c-9f56700ef8db
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: f767811a-0571-44f3-95b3-7c8ee11e8faa
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column label
+		dataType: string
+		lineageTag: 96c82984-19c0-44df-8db6-63dc154978f8
+		summarizeBy: none
+		sourceColumn: label
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_States = m
+		mode: import
+		queryGroup: DIMs
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\jirip\Documents\Developer\python\kriminalita\dimensions\states.csv"),[Delimiter=",", Columns=2, Encoding=65001]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id", Int64.Type}, {"label", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

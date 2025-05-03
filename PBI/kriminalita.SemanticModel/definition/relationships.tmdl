@@ -1,0 +1,20 @@
+relationship 72d8b71e-2f4d-9d06-0680-fe11c5e72bb3
+	fromColumn: F_Crime.state
+	toColumn: D_States.id
+
+relationship 5ac0e79f-87ad-ce17-0ffb-2d21ca9ae3ea
+	fromColumn: F_Crime.types
+	toColumn: D_Type.id
+
+relationship ce95f9ed-80ba-f864-ef92-dc0628e5c11a
+	fromColumn: F_Crime.relevance
+	toColumn: D_Relevance.id
+
+relationship 0b31f0f1-3688-53b6-f6ca-e101b95cace3
+	fromColumn: F_Crime.date_key
+	toColumn: D_Calendar.Date
+
+relationship f3dc0788-59c9-a5a6-b776-f86472033dd5
+	fromColumn: F_Crime.city_id
+	toColumn: D_Location.id
+

@@ -1,0 +1,60 @@
+table D_Type
+	lineageTag: efe9a121-5e33-482b-bc27-2f76da287856
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 3683d8a6-9b9b-46ed-abaa-83465d5a52b6
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_1_name
+		dataType: string
+		lineageTag: e9ce4534-b58e-41c1-8384-bcbdd90feb40
+		summarizeBy: none
+		sourceColumn: level_1_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_2_label
+		dataType: string
+		lineageTag: bb45f69f-e9c6-407c-adbc-df2be9fddd0e
+		summarizeBy: none
+		sourceColumn: level_2_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_3_label
+		dataType: string
+		lineageTag: cb0786ec-952d-454c-8d24-4d25826082c4
+		summarizeBy: none
+		sourceColumn: level_3_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_4_label
+		dataType: string
+		lineageTag: b670b310-f33b-462b-9e81-da792e8217c5
+		summarizeBy: none
+		sourceColumn: level_4_label
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Type = m
+		mode: import
+		queryGroup: DIMs
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\jirip\Documents\Developer\python\kriminalita\dimensions\dim_type.csv"),[Delimiter=",", Columns=15, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id", Int64.Type}, {"level_1_id", Int64.Type}, {"level_1_label", type text}, {"level_1_name", type text}, {"level_2_id", Int64.Type}, {"level_2_label", type text}, {"level_2_name", type text}, {"level_3_id", Int64.Type}, {"level_3_label", type text}, {"level_3_name", type text}, {"level_4_id", Int64.Type}, {"level_4_label", type text}, {"level_4_name", type text}, {"name", type text}, {"label", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"level_1_id", "level_2_id", "level_3_id", "level_4_id", "level_1_label", "level_2_name", "level_3_name", "level_4_name", "name", "label"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

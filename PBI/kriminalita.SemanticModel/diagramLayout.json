@@ -1,0 +1,131 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 361,
+            "y": 130
+          },
+          "nodeIndex": "F_Crime",
+          "nodeLineageTag": "c9706816-aad3-431e-9319-8f0d82b725ef",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "D_Calendar",
+          "nodeLineageTag": "8bc83204-6f70-458e-94f7-2d653a0acd93",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 6,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 109
+          },
+          "nodeIndex": "D_Calendar_tmp",
+          "nodeLineageTag": "b7953400-c62f-499e-98e8-e6b6a41c3f3d",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 2,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 623.5
+          },
+          "nodeIndex": "Calculations",
+          "nodeLineageTag": "941accff-907e-4fdf-845c-b506bfb843c5",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 290
+          },
+          "nodeIndex": "D_Relevance",
+          "nodeLineageTag": "52babea3-daa3-4742-8d2d-aae69a8ca22e",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 7,
+          "expandedHeight": 128
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 396
+          },
+          "nodeIndex": "D_States",
+          "nodeLineageTag": "572ce952-8c4e-42de-b17c-9f56700ef8db",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 4,
+          "expandedHeight": 128
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 503
+          },
+          "nodeIndex": "D_Type",
+          "nodeLineageTag": "efe9a121-5e33-482b-bc27-2f76da287856",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 5,
+          "expandedHeight": 200
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 182
+          },
+          "nodeIndex": "D_Location",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 8,
+          "expandedHeight": 248
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

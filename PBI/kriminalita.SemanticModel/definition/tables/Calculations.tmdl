@@ -1,0 +1,67 @@
+table Calculations
+	lineageTag: 941accff-907e-4fdf-845c-b506bfb843c5
+
+	measure 'DISTINCTCOUNT of id' = DISTINCTCOUNT('F_Crime'[id])
+		formatString: #,##0
+		displayFolder: Aggragations
+		lineageTag: 6eb84d82-e453-4500-8816-15890dd2066d
+
+	/// This measure is the MAX of column 'D_Location'[Okres_populace]
+	measure Population =
+			[SUM of Population]
+			
+			//SWITCH(
+			//    TRUE(),
+			//    ISINSCOPE(D_Location[Okres_name]),[AVERAGE of Population],
+			//    ISINSCOPE(D_Location[Kraj_name]),[SUM of Population],
+			//    [SUM of Population]
+			//)
+		formatString: #,##0
+		lineageTag: 61a0a85e-ebe1-47a9-93b0-9272441f664c
+
+	measure 'Annual Crime rate per person' = ```
+			DIVIDE(
+			    [No of Crimes],[Population]    
+			)
+			```
+		formatString: #,##0.00 %
+		lineageTag: f4626949-cf39-460e-997f-d03ace3073a5
+
+	/// This measure is the sum of column 'D_Location'[Okres_populace]
+	measure 'SUM of Population' = SUM(D_Location[Population])
+		formatString: #,##0.00
+		displayFolder: Aggragations
+		lineageTag: 4daca5a8-cb0b-40b7-8455-cb10d93a23a9
+
+	/// This measure is the sum of column 'D_Location'[Okres_populace]
+	measure 'AVERAGE of Population' = AVERAGE(D_Location[Population])
+		formatString: #,##0.00 %
+		displayFolder: Aggragations
+		lineageTag: e95cc23c-2e29-4deb-bde2-9d68877e9011
+
+	/// This measure is the MAX of column 'D_Location'[Okres_populace]
+	measure 'No of Crimes' = [DISTINCTCOUNT of id]
+		formatString: #,##0
+		lineageTag: d45e4c08-8990-49ae-a220-9cb0b1ad9651
+
+	column Column1
+		dataType: string
+		lineageTag: 909676ea-00b7-47c1-9754-ff86955ea477
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calculations = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
