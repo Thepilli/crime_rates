@@ -1,6 +1,9 @@
 table F_Crime
 	lineageTag: c9706816-aad3-431e-9319-8f0d82b725ef
 
+	measure _slicer_F_Crime = COUNTROWS(F_Crime)
+		lineageTag: a697bfff-4ff5-48cc-b60c-548e159a6ce7
+
 	column id
 		dataType: int64
 		formatString: 0
