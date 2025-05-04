@@ -33,3 +33,5 @@ table D_Relevance
 
 	annotation PBI_ResultType = Table
 
+	annotation TabularEditor_TableGroup = DIMs
+

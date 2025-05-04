@@ -93,3 +93,5 @@ table D_Location
 
 	annotation PBI_ResultType = Table
 
+	annotation TabularEditor_TableGroup = DIMs
+

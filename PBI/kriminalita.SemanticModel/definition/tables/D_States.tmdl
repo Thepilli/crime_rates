@@ -33,3 +33,5 @@ table D_States
 
 	annotation PBI_ResultType = Table
 
+	annotation TabularEditor_TableGroup = DIMs
+

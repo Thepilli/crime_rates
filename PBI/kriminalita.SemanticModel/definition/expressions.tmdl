@@ -1,0 +1,14 @@
+expression H_type_url =
+		let
+		    Source = Csv.Document(File.Contents("C:\Users\jirip\Documents\Developer\python\kriminalita\dimensions\H_type_url.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"type_key", Int64.Type}, {"type_url", type text}})
+		in
+		    #"Changed Type"
+	lineageTag: fe225b50-df16-4672-8bfc-aa2b3c56ebff
+	queryGroup: DIMs
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

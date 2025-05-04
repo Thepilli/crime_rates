@@ -27,6 +27,8 @@ table Calculations
 		formatString: #,##0.00 %
 		lineageTag: f4626949-cf39-460e-997f-d03ace3073a5
 
+		annotation PBI_FormatHint = {"isCustom":true}
+
 	/// This measure is the sum of column 'D_Location'[Okres_populace]
 	measure 'SUM of Population' = SUM(D_Location[Population])
 		formatString: #,##0.00
@@ -43,6 +45,11 @@ table Calculations
 	measure 'No of Crimes' = [DISTINCTCOUNT of id]
 		formatString: #,##0
 		lineageTag: d45e4c08-8990-49ae-a220-9cb0b1ad9651
+
+	/// This measure is the MAX of column 'D_Location'[Okres_populace]
+	measure 'No of Crimes-copy' = CALCULATE([DISTINCTCOUNT of id],KEEPFILTERS(D_Type[level_1_id]<>97))
+		formatString: #,##0
+		lineageTag: 56775c47-5d1d-4805-b92b-dcea33313dc8
 
 	column Column1
 		dataType: string

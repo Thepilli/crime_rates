@@ -10,14 +10,6 @@ table D_Type
 
 		annotation SummarizationSetBy = Automatic
 
-	column level_1_name
-		dataType: string
-		lineageTag: e9ce4534-b58e-41c1-8384-bcbdd90feb40
-		summarizeBy: none
-		sourceColumn: level_1_name
-
-		annotation SummarizationSetBy = Automatic
-
 	column level_2_label
 		dataType: string
 		lineageTag: bb45f69f-e9c6-407c-adbc-df2be9fddd0e
@@ -42,19 +34,50 @@ table D_Type
 
 		annotation SummarizationSetBy = Automatic
 
+	column level_1_id
+		dataType: int64
+		formatString: 0
+		lineageTag: afb36f81-d563-462e-838a-9f9595ff89d7
+		summarizeBy: none
+		sourceColumn: level_1_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_1_label
+		dataType: string
+		lineageTag: 7653c28d-ecf9-4b58-b2c8-23cb791c8134
+		summarizeBy: none
+		sourceColumn: level_1_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column type_url
+		dataType: string
+		lineageTag: 41ca67a1-7af5-461c-b756-fe8d70b1ebaa
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: type_url
+
+		annotation SummarizationSetBy = Automatic
+
 	partition D_Type = m
 		mode: import
 		queryGroup: DIMs
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\jirip\Documents\Developer\python\kriminalita\dimensions\dim_type.csv"),[Delimiter=",", Columns=15, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("C:\Users\jirip\Documents\Developer\python\kriminalita\dimensions\D_type.csv"),[Delimiter=",", Columns=15, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id", Int64.Type}, {"level_1_id", Int64.Type}, {"level_1_label", type text}, {"level_1_name", type text}, {"level_2_id", Int64.Type}, {"level_2_label", type text}, {"level_2_name", type text}, {"level_3_id", Int64.Type}, {"level_3_label", type text}, {"level_3_name", type text}, {"level_4_id", Int64.Type}, {"level_4_label", type text}, {"level_4_name", type text}, {"name", type text}, {"label", type text}}),
-				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"level_1_id", "level_2_id", "level_3_id", "level_4_id", "level_1_label", "level_2_name", "level_3_name", "level_4_name", "name", "label"})
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{ "level_2_id", "level_3_id", "level_4_id", "level_1_name", "level_2_name", "level_3_name", "level_4_name", "name", "label"}),
+				    #"Capitalized Each Word" = Table.TransformColumns(#"Removed Columns",{{"level_1_label", Text.Proper, type text}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Capitalized Each Word", {"level_1_id"}, H_type_url, {"type_key"}, "H_type_url", JoinKind.LeftOuter),
+				    #"Expanded H_type_url" = Table.ExpandTableColumn(#"Merged Queries", "H_type_url", {"type_url"}, {"type_url"})
 				in
-				    #"Removed Columns"
+				    #"Expanded H_type_url"
 
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Table
+
+	annotation TabularEditor_TableGroup = DIMs
 
