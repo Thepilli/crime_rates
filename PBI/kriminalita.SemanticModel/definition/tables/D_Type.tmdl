@@ -1,6 +1,14 @@
 table D_Type
 	lineageTag: efe9a121-5e33-482b-bc27-2f76da287856
 
+	measure type_image = SELECTEDVALUE(D_Type[type_url])
+		lineageTag: ca7be12f-89fd-47ed-9f2c-7e43eaec71f1
+		dataCategory: ImageUrl
+
+	measure blank = BLANK()
+		formatString: 0
+		lineageTag: b94a170d-e924-4706-a9d5-6da1439e6183
+
 	column id
 		dataType: int64
 		formatString: 0

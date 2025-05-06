@@ -1,0 +1,75 @@
+table D_Time
+	lineageTag: d0ddd79b-f90e-4b3e-aa5b-b95b2703084d
+
+	column am_pm
+		dataType: string
+		lineageTag: 39226350-da36-4d9f-b71e-dad5a9b1e601
+		summarizeBy: none
+		sourceColumn: am_pm
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_time_12
+		dataType: string
+		lineageTag: 645ab7d2-8e99-4125-9ad5-5f824eb63e94
+		summarizeBy: none
+		sourceColumn: full_time_12
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_time_24
+		dataType: string
+		lineageTag: 8f982ed1-9869-42d4-a36a-9a60500fb79a
+		summarizeBy: none
+		sourceColumn: full_time_24
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hour 12'
+		dataType: string
+		lineageTag: 3cd410e2-0765-481b-b447-2eada8a8f284
+		summarizeBy: none
+		sourceColumn: Hour 12
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hour 24'
+		dataType: string
+		lineageTag: c609e920-4c5f-4dc1-ba49-8ecc38a48ac7
+		summarizeBy: none
+		sourceColumn: Hour 24
+
+		annotation SummarizationSetBy = Automatic
+
+	column Minute
+		dataType: string
+		lineageTag: 2522272d-3cd6-4ed1-908e-9861882b2256
+		summarizeBy: none
+		sourceColumn: Minute
+
+		annotation SummarizationSetBy = Automatic
+
+	column time_key
+		dataType: string
+		lineageTag: 59d692a0-a46a-47ef-91d8-066f43486eb5
+		summarizeBy: none
+		sourceColumn: time_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Time = m
+		mode: import
+		queryGroup: DIMs
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\jirip\Documents\Developer\python\kriminalita\dimensions\D_time.csv"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+				in
+				    #"Promoted Headers"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+	annotation TabularEditor_TableGroup = DIMs
+

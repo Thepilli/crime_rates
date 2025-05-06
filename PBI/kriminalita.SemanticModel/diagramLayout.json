@@ -116,6 +116,20 @@
           },
           "zIndex": 8,
           "expandedHeight": 248
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 745.75
+          },
+          "nodeIndex": "D_Time",
+          "nodeLineageTag": "d0ddd79b-f90e-4b3e-aa5b-b95b2703084d",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 248
         }
       ],
       "name": "All tables",

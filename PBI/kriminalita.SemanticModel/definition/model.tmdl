@@ -18,7 +18,7 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBIDesktopVersion = 2.142.928.0 (25.04)+de52df9f0bb74ad93a80d89c52d63fe6d07e0e1b
 
-annotation PBI_QueryOrder = ["F_Crime","D_Relevance","D_States","D_Type","D_Location","Calculations","H_type_url"]
+annotation PBI_QueryOrder = ["F_Crime","D_Relevance","D_States","D_Type","D_Location","Calculations","H_type_url","D_Time"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
@@ -32,6 +32,7 @@ ref table D_Location
 ref table D_Calendar
 ref table D_Calendar_tmp
 ref table Calculations
+ref table D_Time
 
 ref cultureInfo en-US
 

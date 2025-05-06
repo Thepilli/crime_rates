@@ -18,3 +18,7 @@ relationship f3dc0788-59c9-a5a6-b776-f86472033dd5
 	fromColumn: F_Crime.city_id
 	toColumn: D_Location.id
 
+relationship 15f5508b-ad52-0fb7-7712-03194e09c45a
+	fromColumn: F_Crime.time_key
+	toColumn: D_Time.time_key
+

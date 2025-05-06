@@ -21,7 +21,7 @@ table Calculations
 
 	measure 'Annual Crime rate per person' = ```
 			DIVIDE(
-			    [No of Crimes],[Population]    
+			    [No of Crimes (w prestupky)],[Population]    
 			)
 			```
 		formatString: #,##0.00 %
@@ -42,14 +42,19 @@ table Calculations
 		lineageTag: e95cc23c-2e29-4deb-bde2-9d68877e9011
 
 	/// This measure is the MAX of column 'D_Location'[Okres_populace]
-	measure 'No of Crimes' = [DISTINCTCOUNT of id]
+	measure 'No of Crimes (w prestupky)' = [DISTINCTCOUNT of id]
 		formatString: #,##0
 		lineageTag: d45e4c08-8990-49ae-a220-9cb0b1ad9651
 
 	/// This measure is the MAX of column 'D_Location'[Okres_populace]
-	measure 'No of Crimes-copy' = CALCULATE([DISTINCTCOUNT of id],KEEPFILTERS(D_Type[level_1_id]<>97))
+	measure 'No of Crimes' = CALCULATE([DISTINCTCOUNT of id],KEEPFILTERS(D_Type[level_1_id]<>97))
 		formatString: #,##0
 		lineageTag: 56775c47-5d1d-4805-b92b-dcea33313dc8
+
+	measure 'DISTINCTCOUNT of id rows' = CALCULATE(COUNTROWS(F_Crime),F_Crime[is_one]=1)
+		formatString: #,##0
+		displayFolder: Aggragations
+		lineageTag: 0f4d39e5-f740-4a03-a5a2-85bf39c225cb
 
 	column Column1
 		dataType: string

@@ -84,6 +84,7 @@ table D_Calendar
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: D_Calendar_tmp[Month]
+		sortByColumn: 'Month Number'
 
 		annotation SummarizationSetBy = Automatic
 
